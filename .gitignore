@@ -1,0 +1,19 @@
+# direnv cache
+.direnv/
+
+# nix build output
+/result*
+
+# IDEs
+.idea/
+
+# process-compose
+*.log
+
+# execution client
+execution/geth/
+
+# consensus client
+consensus/genesis.ssz
+consensus/beacon/
+consensus/validator/

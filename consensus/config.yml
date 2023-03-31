@@ -1,0 +1,47 @@
+# Custom net config
+
+# Extends interop preset
+CONFIG_NAME: interop
+PRESET_BASE: interop
+
+# Transition
+# ---------------------------------------------------------------
+TERMINAL_TOTAL_DIFFICULTY: 50
+
+# Genesis
+# ---------------------------------------------------------------
+GENESIS_FORK_VERSION: 0x20000089
+
+# Forking
+# ---------------------------------------------------------------
+
+# Altair
+ALTAIR_FORK_EPOCH: 2
+ALTAIR_FORK_VERSION: 0x20000090
+
+# Bellatrix
+BELLATRIX_FORK_EPOCH: 4
+BELLATRIX_FORK_VERSION: 0x20000091
+
+# Capella
+CAPELLA_FORK_VERSION: 0x20000092
+CAPELLA_FORK_EPOCH: 6
+
+# Deneb
+# DENEB_FORK_VERSION: 0x20000093
+# DENEB_FORK_EPOCH: 8
+
+# Time parameters
+# ---------------------------------------------------------------
+
+# 12 seconds
+SECONDS_PER_SLOT: 12
+
+# Number of slots
+SLOTS_PER_EPOCH: 6
+
+# Deposit contract
+# ---------------------------------------------------------------
+
+# Deployed address
+DEPOSIT_CONTRACT_ADDRESS: 0x4242424242424242424242424242424242424242

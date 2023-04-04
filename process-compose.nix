@@ -102,6 +102,11 @@
                 --unlock=0x123463a4B065722E99115D6c222f267d9cABb524 \
                 --verbosity=3
               '';
+              availability = {
+                restart = "on_failure";
+                backoff_seconds = 2;
+                max_restarts = 5;
+              };
               environment = [
                 "BUILDER_TX_SIGNING_KEY=0x2e0834786285daccd064ca17f1654f67b4aef298acbb82cef9ec422fb4975622"
               ];
@@ -132,6 +137,11 @@
                 --rpc-host=0.0.0.0 \
                 --suggested-fee-recipient=0x123463a4B065722E99115D6c222f267d9cABb524
               '';
+              availability = {
+                restart = "on_failure";
+                backoff_seconds = 2;
+                max_restarts = 5;
+              };
               depends_on.geth.condition = "service_started";
             };
 
@@ -142,6 +152,11 @@
                 -genesis-fork-version="0x20000089" \
                 -relay http://0xa325d0c8204dc066be241cbf064f81884779d012f3ca57710947fe2075f1d6572d40113a97ae86771605b75e33e65711@localhost:28545
               '';
+              availability = {
+                restart = "on_failure";
+                backoff_seconds = 2;
+                max_restarts = 5;
+              };
               depends_on.beacon-chain.condition = "service_started";
             };
 
@@ -160,6 +175,11 @@
                 --interop-start-index=0 \
                 --suggested-fee-recipient=0x123463a4B065722E99115D6c222f267d9cABb524
               '';
+              availability = {
+                restart = "on_failure";
+                backoff_seconds = 2;
+                max_restarts = 5;
+              };
               depends_on.beacon-chain.condition = "service_started";
             };
           };

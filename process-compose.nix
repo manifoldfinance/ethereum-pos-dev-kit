@@ -12,7 +12,15 @@
     ...
   }:
     with lib; let
-      inherit (inputs'.ethereum-nix.packages) geth prysm mev-boost-builder;
+      inherit
+        (inputs'.ethereum-nix.packages)
+        geth
+        mev-boost
+        mev-boost-builder
+        mev-boost-prysm
+        mev-boost-relay
+        prysm
+        ;
     in {
       # Add custom commands related to spinning up Ethereum PoS
       devshells.default = {
@@ -106,7 +114,7 @@
             #   proposed via the validators attached to the beacon node.
             beacon-chain = {
               command = ''
-                ${prysm}/bin/beacon-chain \
+                ${mev-boost-prysm}/bin/beacon-chain \
                 --accept-terms-of-use \
                 --bootstrap-node= \
                 --chain-config-file=./consensus/config.yml \
@@ -115,15 +123,26 @@
                 --execution-endpoint=http://localhost:8551 \
                 --genesis-state=./consensus/genesis.ssz \
                 --grpc-gateway-host=0.0.0.0 \
+                --grpc-gateway-port=3500 \
                 --http-mev-relay=http://localhost:28545 \
                 --interop-eth1data-votes \
-                --jwt-secret=./config/jwtsecret \
                 --interop-num-validators=64 \
+                --jwt-secret=./config/jwtsecret \
                 --min-sync-peers=0 \
                 --rpc-host=0.0.0.0 \
                 --suggested-fee-recipient=0x123463a4B065722E99115D6c222f267d9cABb524
               '';
               depends_on.geth.condition = "service_started";
+            };
+
+            # mev-boost
+            mev-boost = {
+              command = ''
+                ${mev-boost}/bin/mev-boost \
+                -genesis-fork-version="0x20000089" \
+                -relay http://0xa325d0c8204dc066be241cbf064f81884779d012f3ca57710947fe2075f1d6572d40113a97ae86771605b75e33e65711@localhost:28545
+              '';
+              depends_on.beacon-chain.condition = "service_started";
             };
 
             # Validator client:
